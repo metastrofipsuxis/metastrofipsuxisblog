@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Αντώνιος Βαμβακάς - Πνευματικός Δάσκαλος</title>
+    <style>
+        :root {
+            --primary-color: #5D4037;
+            --secondary-color: #8D6E63;
+            --accent-color: #CDDC39;
+            --light-color: #EFEBE9;
+            --dark-color: #3E2723;
+            --text-color: #212121;
+            --background-color: #FAFAFA;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--background-color);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+        
+        header {
+            background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+            color: white;
+            text-align: center;
+            padding: 2rem 1rem;
+        }
+        
+        .logo {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+        
+        .tagline {
+            font-size: 1.2rem;
+            font-weight: 300;
+            font-style: italic;
+        }
+        
+        nav {
+            background-color: var(--dark-color);
+            padding: 1rem;
+        }
+        
+        nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        nav ul li {
+            margin: 0 1rem;
+        }
+        
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        
+        nav ul li a:hover {
+            color: var(--accent-color);
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
+        
+        .section {
+            margin-bottom: 3rem;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 2rem;
+        }
+        
+        .section-title {
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--accent-color);
+        }
+        
+        .bio-content {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 2rem;
+        }
+        
+        .bio-image {
+            flex: 1;
+            min-width: 250px;
+            text-align: center;
+        }
+        
+        .bio-image img {
+            border-radius: 50%;
+            max-width: 100%;
+            height: auto;
+        }
+        
+        .bio-text {
+            flex: 2;
+            min-width: 300px;
+        }
+        
+        .thoughts-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        
+        .thought-card {
+            background-color: var(--light-color);
+            border-radius: 8px;
+            padding: 1.5rem;
+            transition: transform 0.3s ease;
+        }
+        
+        .thought-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .thought-title {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+        
+        .thought-date {
+            color: var(--secondary-color);
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+        
+        .thought-excerpt {
+            margin-bottom: 1rem;
+        }
+        
+        .btn {
+            display: inline-block;
+            background-color: var(--primary-color);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .btn:hover {
+            background-color: var(--secondary-color);
+        }
+        
+        .calendly-section {
+            height: 650px;
+            overflow: hidden;
+        }
+        
+        footer {
+            background-color: var(--dark-color);
+            color: white;
+            text-align: center;
+            padding: 2rem 1rem;
+            margin-top: 2rem;
+        }
+        
+        .social-links {
+            margin: 1.5rem 0;
+        }
+        
+        .social-links a {
+            color: white;
+            margin: 0 1rem;
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+        }
+        
+        .social-links a:hover {
+            color: var(--accent-color);
+        }
+        
+        .copyright {
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+        
+        @media (max-width: 768px) {
+            .logo {
+                font-size: 2rem;
+            }
+            
+            .tagline {
+                font-size: 1rem;
+            }
+            
+            nav ul {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            nav ul li {
+                margin: 0.5rem 0;
+            }
+            
+            .bio-content {
+                flex-direction: column;
+            }
+            
+            .thoughts-list {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <header>
+        <div class="logo">Αντώνιος Βαμβακάς</div>
+        <div class="tagline">Μεταμόρφωση Ψυχής - Πνευματικός Δάσκαλος</div>
+    </header>
+    
+    <nav>
+        <ul>
+            <li><a href="#about">Ποιος Είμαι</a></li>
+            <li><a href="#thoughts">Σκέψεις</a></li>
+            <li><a href="#services">Υπηρεσίες</a></li>
+            <li><a href="#book">Κλείσε Συνεδρία</a></li>
+            <li><a href="#contact">Επικοινωνία</a></li>
+        </ul>
+    </nav>
+    
+    <div class="container">
+        <section id="about" class="section">
+            <h2 class="section-title">Ποιος Είμαι</h2>
+            <div class="bio-content">
+                <div class="bio-image">
+                    <img src="https://via.placeholder.com/400" alt="Αντώνιος Βαμβακάς - Πνευματικός Δάσκαλος">
+                </div>
+                <div class="bio-text">
+                    <p>Είμαι ο Αντώνιος Βαμβακάς, ένας πνευματικός δάσκαλος αφοσιωμένος στη μεταμόρφωση της ψυχής και την πνευματική ανάπτυξη. Με πολυετή εμπειρία στην πνευματική καθοδήγηση, έχω βοηθήσει εκατοντάδες ανθρώπους να ανακαλύψουν τον εσωτερικό τους εαυτό και να επιτύχουν εσωτερική γαλήνη.</p>
+                    <p>Η προσέγγισή μου συνδυάζει αρχαίες σοφίες με σύγχρονες μεθόδους, προσφέροντας έναν μοναδικό δρόμο προς την αυτογνωσία και την προσωπική ανάπτυξη.</p>
+                    <p>Πιστεύω ότι κάθε άνθρωπος έχει μέσα του απεριόριστες δυνατότητες. Η αποστολή μου είναι να σας βοηθήσω να ξεκλειδώσετε αυτές τις δυνατότητες και να ζήσετε μια ζωή με νόημα, σκοπό και πληρότητα.</p>
+                </div>
+            </div>
+        </section>
+        
+        <section id="thoughts" class="section">
+            <h2 class="section-title">Σκέψεις & Διδασκαλίες</h2>
+            <div class="thoughts-list">
+                <div class="thought-card">
+                    <h3 class="thought-title">Η Δύναμη της Παρούσας Στιγμής</h3>
+                    <div class="thought-date">26 Φεβρουαρίου 2025</div>
+                    <p class="thought-excerpt">Η παρούσα στιγμή είναι το μόνο που έχουμε πραγματικά. Το παρελθόν είναι μια ανάμνηση, το μέλλον μια φαντασία. Όταν μαθαίνουμε να ζούμε στο τώρα, ανακαλύπτουμε την αληθινή δύναμη της ύπαρξής μας...</p>
+                    <a href="#" class="btn">Διαβάστε περισσότερα</a>
+                </div>
+                
+                <div class="thought-card">
+                    <h3 class="thought-title">Πνευματική Αφύπνιση στην Καθημερινότητα</h3>
+                    <div class="thought-date">20 Φεβρουαρίου 2025</div>
+                    <p class="thought-excerpt">Η πνευματική αφύπνιση δεν είναι κάτι που συμβαίνει μόνο σε απομονωμένα βουνά ή σε αυστηρές ασκητικές συνθήκες. Μπορεί να συμβεί στην καθημερινή ζωή, μέσα από απλές πράξεις συνειδητότητας...</p>
+                    <a href="#" class="btn">Διαβάστε περισσότερα</a>
+                </div>
+                
+                <div class="thought-card">
+                    <h3 class="thought-title">Η Τέχνη της Αποδοχής</h3>
+                    <div class="thought-date">15 Φεβρουαρίου 2025</div>
+                    <p class="thought-excerpt">Η αποδοχή δεν είναι παραίτηση. Είναι η αναγνώριση της πραγματικότητας όπως είναι, χωρίς αντίσταση. Όταν αποδεχόμαστε αυτό που είναι, απελευθερώνουμε την ενέργεια που χρειαζόμαστε για να δημιουργήσουμε αυτό που θέλουμε...</p>
+                    <a href="#" class="btn">Διαβάστε περισσότερα</a>
+                </div>
+            </div>
+        </section>
+        
+        <section id="services" class="section">
+            <h2 class="section-title">Υπηρεσίες</h2>
+            <div class="services-content">
+                <div class="service-item">
+                    <h3>Ατομικές Συνεδρίες</h3>
+                    <p>Προσωπική καθοδήγηση προσαρμοσμένη στις δικές σας ανάγκες και στόχους. Οι συνεδρίες μπορούν να πραγματοποιηθούν διαδικτυακά ή με φυσική παρουσία.</p>
+                </div>
+                
+                <div class="service-item">
+                    <h3>Ομαδικά Εργαστήρια</h3>
+                    <p>Διαδραστικά εργαστήρια που εξερευνούν διάφορες πτυχές της πνευματικής ανάπτυξης, του διαλογισμού και της αυτογνωσίας.</p>
+                </div>
+                
+                <div class="service-item">
+                    <h3>Διαλογισμός & Mindfulness</h3>
+                    <p>Μάθετε τεχνικές διαλογισμού και ενσυνειδητότητας που μπορείτε να εφαρμόσετε στην καθημερινή σας ζωή για μεγαλύτερη γαλήνη και διαύγεια.</p>
+                </div>
+            </div>
+        </section>
+        
+        <section id="book" class="section calendly-section">
+            <h2 class="section-title">Κλείσε Συνεδρία</h2>
+            <p>Χρησιμοποιήστε το παρακάτω ημερολόγιο για να κλείσετε μια συνεδρία μαζί μου:</p>
+            <!-- Εδώ θα προσθέσετε το Calendly embed script σας -->
+            <div class="calendly-inline-widget" data-url="https://calendly.com/yourname" style="min-width:320px;height:580px;"></div>
+            <script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async></script>
+        </section>
+        
+        <section id="contact" class="section">
+            <h2 class="section-title">Επικοινωνία</h2>
+            <p>Μπορείτε να επικοινωνήσετε μαζί μου μέσω email ή στα μέσα κοινωνικής δικτύωσης:</p>
+            <p>Email: info@antoniosvamvakas.gr</p>
+            <div class="social-links">
+                <a href="https://instagram.com/yourhandle" target="_blank"><i class="fab fa-instagram"></i></a>
+                <a href="https://facebook.com/yourpage" target="_blank"><i class="fab fa-facebook"></i></a>
+                <a href="https://youtube.com/yourchannel" target="_blank"><i class="fab fa-youtube"></i></a>
+            </div>
+        </section>
+    </div>
+    
+    <footer>
+        <div class="social-links">
+            <a href="https://instagram.com/yourhandle" target="_blank"><i class="fab fa-instagram"></i></a>
+            <a href="https://facebook.com/yourpage" target="_blank"><i class="fab fa-facebook"></i></a>
+            <a href="https://youtube.com/yourchannel" target="_blank"><i class="fab fa-youtube"></i></a>
+        </div>
+        <div class="copyright">
+            &copy; 2025 Αντώνιος Βαμβακάς - Πνευματικός Δάσκαλος. Με επιφύλαξη παντός δικαιώματος.
+        </div>
+    </footer>
+</body>
+</html>

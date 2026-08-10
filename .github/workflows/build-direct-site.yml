@@ -33,7 +33,8 @@ jobs:
                   raise SystemExit(f'Missing {p}')
               parts.append(p.read_text().strip())
           encoded=''.join(parts)
-          raw=base64.b64decode(encoded, validate=True)
+          encoded += '=' * (-len(encoded) % 4)
+          raw=base64.b64decode(encoded)
           html=gzip.decompress(raw).decode('utf-8')
           if '<html' not in html.lower():
               raise SystemExit('Decoded content is not HTML')

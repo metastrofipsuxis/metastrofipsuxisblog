@@ -5,12 +5,10 @@ on:
     branches: [main]
     paths:
       - '.github/workflows/build-direct-site.yml'
-      - 'sitechunk_0.txt'
-      - 'sitechunk_1.txt'
-      - 'sitechunk_2.txt'
-      - 'sitechunk_3.txt'
-      - 'sitechunk_4.txt'
-      - 'sitechunk_5.txt'
+      - 'directchunk_0.txt'
+      - 'directchunk_1.txt'
+      - 'directchunk_2.txt'
+      - 'directchunk_3.txt'
   workflow_dispatch:
 
 permissions:
@@ -24,22 +22,21 @@ jobs:
       - name: Reconstruct direct HTML
         run: |
           python - <<'PY'
-          import base64, gzip
+          import base64
           from pathlib import Path
           parts=[]
-          for i in range(6):
-              p=Path(f'sitechunk_{i}.txt')
+          for i in range(4):
+              p=Path(f'directchunk_{i}.txt')
               if not p.exists():
                   raise SystemExit(f'Missing {p}')
               parts.append(p.read_text().strip())
           encoded=''.join(parts)
-          encoded += '=' * (-len(encoded) % 4)
-          raw=base64.b64decode(encoded)
-          html=gzip.decompress(raw).decode('utf-8')
-          if '<html' not in html.lower():
-              raise SystemExit('Decoded content is not HTML')
+          raw=base64.b64decode(encoded, validate=True)
+          html=raw.decode('utf-8')
+          if '<html' not in html.lower() or 'Μεταστροφή Ψυχής' not in html:
+              raise SystemExit('Decoded content is not the expected HTML')
           Path('index.html').write_text(html, encoding='utf-8')
-          print('Direct index.html bytes:', len(html.encode('utf-8')))
+          print('Direct index.html bytes:', len(raw))
           PY
       - name: Commit direct HTML
         run: |

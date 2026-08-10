@@ -19,24 +19,38 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Reconstruct direct HTML
+      - name: Verify chunks and reconstruct direct HTML
         run: |
           python - <<'PY'
-          import base64
+          import base64, hashlib
           from pathlib import Path
+          expected=[
+            (8800,'86980124eacc7ee45bc03f7abe889a21c9a991584f81b58c13911bbe32f9b35b'),
+            (8800,'552e3be2c3ed86c35d69b07b0c5c297cca26c6687b6290dd41181b6af01e1c66'),
+            (8800,'02b3c30e5bd9b6c1c7b28e2b3a80958273e6dfaffb1da804dd504d111737d7fb'),
+            (8212,'b2adba9c9ffb7a8c1102b79ecb0b348b39eca570fcd214b69d7dc061c043b08d'),
+          ]
           parts=[]
-          for i in range(4):
+          bad=[]
+          for i,(want_len,want_sha) in enumerate(expected):
               p=Path(f'directchunk_{i}.txt')
               if not p.exists():
                   raise SystemExit(f'Missing {p}')
-              parts.append(p.read_text().strip())
+              text=p.read_text().strip()
+              got_sha=hashlib.sha256(text.encode()).hexdigest()
+              print(f'chunk{i}: len={len(text)} sha256={got_sha}')
+              if len(text)!=want_len or got_sha!=want_sha:
+                  bad.append(i)
+              parts.append(text)
+          if bad:
+              raise SystemExit('CORRUPTED CHUNKS: '+','.join(map(str,bad)))
           encoded=''.join(parts)
           raw=base64.b64decode(encoded, validate=True)
           html=raw.decode('utf-8')
           if '<html' not in html.lower() or 'Μεταστροφή Ψυχής' not in html:
-              raise SystemExit('Decoded content is not the expected HTML')
+              raise SystemExit('Decoded content is not expected HTML')
           Path('index.html').write_text(html, encoding='utf-8')
-          print('Direct index.html bytes:', len(raw))
+          print('DIRECT HTML OK bytes=',len(raw))
           PY
       - name: Commit direct HTML
         run: |

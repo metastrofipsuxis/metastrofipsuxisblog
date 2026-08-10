@@ -17,11 +17,23 @@ jobs:
         shell: bash
         run: |
           cat restorefull_0.txt restorefull_1.txt restorefull_2.txt restorefull_3.txt restorefull_4.txt restorefull_5.txt restorefull_6.txt > index.html
+          python3 - <<'PY'
+          from pathlib import Path
+          p = Path('index.html')
+          s = p.read_text(encoding='utf-8')
+          s = s.replace('<button data-r="studio">Studio</button>', '')
+          s = s.replace('Το μήνυμα φτάνει απευθείας στο ιδιωτικό Studio.', 'Το μήνυμα φτάνει απευθείας σε εμένα.')
+          s = s.replace('Θα το δω στο ιδιωτικό Studio.', 'Θα το δω προσωπικά.')
+          p.write_text(s, encoding='utf-8')
+          PY
           grep -q 'ΠΟΙΟΣ ΕΙΜΑΙ' index.html
           grep -q 'metastrofi_posts' index.html
           grep -q 'metastrofi_messages' index.html
           grep -q 'Θεραπευτής έγινα' index.html
           grep -q 'data:image/webp;base64' index.html
+          grep -q 'data-v="studio"' index.html
+          ! grep -q '<button data-r="studio">Studio</button>' index.html
+          ! grep -q 'ιδιωτικό Studio' index.html
           test $(wc -c < index.html) -gt 120000
       - name: Publish restored site
         shell: bash
@@ -30,5 +42,5 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add index.html
           if git diff --cached --quiet; then exit 0; fi
-          git commit -m "Restore full Metastrofi site"
+          git commit -m "Hide private Studio from public navigation"
           git push

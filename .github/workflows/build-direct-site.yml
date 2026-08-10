@@ -8,7 +8,9 @@ on:
       - 'directchunk_0.txt'
       - 'directchunk_1.txt'
       - 'directchunk_2.txt'
-      - 'directchunk_3.txt'
+      - 'directchunk_3a.txt'
+      - 'directchunk_3b.txt'
+      - 'directchunk_3c.txt'
   workflow_dispatch:
 
 permissions:
@@ -24,28 +26,26 @@ jobs:
           python - <<'PY'
           import base64, hashlib
           from pathlib import Path
-          expected=[
-            (8800,'86980124eacc7ee45bc03f7abe889a21c9a991584f81b58c13911bbe32f9b35b'),
-            (8800,'552e3be2c3ed86c35d69b07b0c5c297cca26c6687b6290dd41181b6af01e1c66'),
-            (8800,'02b3c30e5bd9b6c1c7b28e2b3a80958273e6dfaffb1da804dd504d111737d7fb'),
-            (8212,'b2adba9c9ffb7a8c1102b79ecb0b348b39eca570fcd214b69d7dc061c043b08d'),
+          files=[
+            ('directchunk_0.txt',8800,'86980124eacc7ee45bc03f7abe889a21c9a991584f81b58c13911bbe32f9b35b'),
+            ('directchunk_1.txt',8800,'552e3be2c3ed86c35d69b07b0c5c297cca26c6687b6290dd41181b6af01e1c66'),
+            ('directchunk_2.txt',8800,'02b3c30e5bd9b6c1c7b28e2b3a80958273e6dfaffb1da804dd504d111737d7fb'),
+            ('directchunk_3a.txt',2800,'a6d3a5d14dd9c5c4bb2d5bc6b46c11f472ca1ceb2eaeecf65687bd6dd4f06c36'),
+            ('directchunk_3b.txt',2800,'6bb98a329ae00d12d988927cb567b2fec752ca6d9694b7b54b0c1d5cbc0af321'),
+            ('directchunk_3c.txt',2612,'969587dfd15c905d744fbf815d42f434b3d0a100453dffcbc9f0b4a77aaa8805'),
           ]
           parts=[]
           bad=[]
-          for i,(want_len,want_sha) in enumerate(expected):
-              p=Path(f'directchunk_{i}.txt')
-              if not p.exists():
-                  raise SystemExit(f'Missing {p}')
+          for name,want_len,want_sha in files:
+              p=Path(name)
+              if not p.exists(): raise SystemExit(f'Missing {name}')
               text=p.read_text().strip()
-              got_sha=hashlib.sha256(text.encode()).hexdigest()
-              print(f'chunk{i}: len={len(text)} sha256={got_sha}')
-              if len(text)!=want_len or got_sha!=want_sha:
-                  bad.append(i)
+              got=hashlib.sha256(text.encode()).hexdigest()
+              print(name,'len=',len(text),'sha256=',got)
+              if len(text)!=want_len or got!=want_sha: bad.append(name)
               parts.append(text)
-          if bad:
-              raise SystemExit('CORRUPTED CHUNKS: '+','.join(map(str,bad)))
-          encoded=''.join(parts)
-          raw=base64.b64decode(encoded, validate=True)
+          if bad: raise SystemExit('CORRUPTED: '+','.join(bad))
+          raw=base64.b64decode(''.join(parts), validate=True)
           html=raw.decode('utf-8')
           if '<html' not in html.lower() or 'Μεταστροφή Ψυχής' not in html:
               raise SystemExit('Decoded content is not expected HTML')

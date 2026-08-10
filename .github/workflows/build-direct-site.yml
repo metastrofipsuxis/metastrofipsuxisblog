@@ -1,0 +1,53 @@
+name: Build direct static site
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/build-direct-site.yml'
+      - 'sitechunk_0.txt'
+      - 'sitechunk_1.txt'
+      - 'sitechunk_2.txt'
+      - 'sitechunk_3.txt'
+      - 'sitechunk_4.txt'
+      - 'sitechunk_5.txt'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Reconstruct direct HTML
+        run: |
+          python - <<'PY'
+          import base64, gzip
+          from pathlib import Path
+          parts=[]
+          for i in range(6):
+              p=Path(f'sitechunk_{i}.txt')
+              if not p.exists():
+                  raise SystemExit(f'Missing {p}')
+              parts.append(p.read_text().strip())
+          encoded=''.join(parts)
+          raw=base64.b64decode(encoded, validate=True)
+          html=gzip.decompress(raw).decode('utf-8')
+          if '<html' not in html.lower():
+              raise SystemExit('Decoded content is not HTML')
+          Path('index.html').write_text(html, encoding='utf-8')
+          print('Direct index.html bytes:', len(html.encode('utf-8')))
+          PY
+      - name: Commit direct HTML
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add index.html
+          if git diff --cached --quiet; then
+            echo 'No changes needed'
+          else
+            git commit -m 'Publish direct static site'
+            git push
+          fi

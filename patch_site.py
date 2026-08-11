@@ -2,11 +2,10 @@ from pathlib import Path
 p=Path('index.html')
 s=p.read_text(encoding='utf-8')
 
-# Repair JavaScript sequences corrupted in the original restore chunks.
-# They contain a literal backslash followed by a real newline; browsers
-# then fail to parse the script and all navigation buttons stop working.
-s=s.replace("split(/\\\n\s*\\\n/)", r"split(/\n\s*\n/)")
-s=s.replace("p.body.join('\\\n\\\n')", r"p.body.join('\n\n')")
+# Repair any literal backslash + real newline sequences that were introduced
+# when the original HTML was split into restore chunks. In JavaScript these
+# break regex/string literals and stop the entire navigation script.
+s=s.replace("\\\n", "\\n")
 
 s=s.replace('<button data-r="studio">Studio</button>','')
 s=s.replace('Το μήνυμα φτάνει απευθείας στο ιδιωτικό Studio.','Το μήνυμα φτάνει απευθείας σε εμένα.')

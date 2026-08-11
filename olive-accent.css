@@ -1,0 +1,22 @@
+/* OLIVE ACCENT + STRONGER CTA — 2026-08-12 */
+:root{--olive:#7f7a43;--olive-deep:#5f6338;--olive-soft:rgba(127,122,67,.10);--olive-line:rgba(95,99,56,.25)}
+.top{box-shadow:0 8px 28px rgba(72,67,37,.045)}
+.nav nav button,.nav nav a{position:relative;padding:10px 13px;border:1px solid rgba(95,99,56,.18);background:rgba(255,255,255,.20);color:var(--brown);letter-spacing:.11em;transition:background .2s ease,border-color .2s ease,color .2s ease,transform .2s ease,box-shadow .2s ease}
+.nav nav button:hover,.nav nav a:hover{background:rgba(127,122,67,.12);border-color:rgba(95,99,56,.42);color:var(--olive-deep);transform:translateY(-1px);box-shadow:0 8px 18px rgba(95,99,56,.08)}
+.mobile button,.mobile a{display:block;width:100%;text-align:left;padding:13px 14px;border-left:3px solid rgba(95,99,56,.34);background:rgba(127,122,67,.06);color:var(--brown)}
+.mobile button:hover,.mobile a:hover{background:rgba(127,122,67,.12);border-left-color:var(--olive-deep)}
+.actions .link{padding:12px 16px 11px;border:1px solid rgba(95,99,56,.34);border-bottom:1px solid rgba(95,99,56,.34);background:rgba(127,122,67,.08);color:var(--brown);font-weight:600;letter-spacing:.115em;transition:background .2s ease,border-color .2s ease,transform .2s ease,box-shadow .2s ease}
+.actions .link:first-child{background:var(--olive-deep);border-color:var(--olive-deep);color:#fbf7ef;box-shadow:0 10px 26px rgba(95,99,56,.16)}
+.actions .link:hover{transform:translateY(-2px);border-color:var(--olive-deep);background:rgba(127,122,67,.15);box-shadow:0 10px 24px rgba(95,99,56,.12)}
+.actions .link:first-child:hover{background:#565b32}
+.micro,.ey,.cards span,.fact span{color:var(--olive-deep)}
+.micro::before{background:rgba(95,99,56,.52)}
+.sec:nth-of-type(odd){background:linear-gradient(180deg,rgba(127,122,67,.025),rgba(255,255,255,0))}
+.cards article{border-top:2px solid rgba(95,99,56,.22)}
+.cards article:hover{border-top-color:rgba(95,99,56,.55);box-shadow:0 18px 42px rgba(72,67,37,.10);transform:translateY(-2px);transition:transform .2s ease,box-shadow .2s ease,border-color .2s ease}
+.tags span{border-color:rgba(95,99,56,.18);background:rgba(127,122,67,.06)}
+.faq article{border-top-color:rgba(95,99,56,.18)}
+.link{color:var(--olive-deep)}
+.contact a{border-left:2px solid rgba(95,99,56,.26);padding-left:16px}
+.contact a:hover{border-left-color:var(--olive-deep);color:var(--olive-deep)}
+@media(max-width:860px){.nav nav{display:none}.mobile button,.mobile a{font-size:13px;letter-spacing:.10em}.actions{gap:12px}.actions .link{padding:12px 14px;font-size:13px}}
